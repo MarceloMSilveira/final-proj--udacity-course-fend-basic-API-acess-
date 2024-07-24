@@ -1,5 +1,5 @@
 const port = 3000;
-
+const today = new Date();
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -19,6 +19,20 @@ app.use(bodyParser.json());
 app.use(cors())
 // Initialize the main project folder
 app.use(express.static('website'));
+
+//data for test:
+projectData.temperature = 20;
+projectData.date = today.toDateString();
+projectData.userResp = "Me sinto bem";
+
+app.get('/test',(req,res)=>res.send(projectData));
+
+app.post('/',(req,res)=>{
+    const recievedData = req.body;
+    console.log(recievedData.userResp);
+    projectData = recievedData;
+    res.send('post recieved')
+})
 
 
 // Setup Server
