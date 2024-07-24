@@ -7,8 +7,8 @@ const apikey = 'dd6c3ba86f66f547459582b843e14bc8';
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-async function getWeatherData() {
-    const weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=94111&appid=dd6c3ba86f66f547459582b843e14bc8";
+async function getWeatherData(baseURL,zipCode, apikey) {
+    const weatherURL = baseURL+'?zip='+zipCode+'&appid='+apikey;
     
     try {
         const res = await fetch(weatherURL);
@@ -21,7 +21,7 @@ async function getWeatherData() {
         
         if (allData.main && allData.main.temp) {
             const temperature = allData.main.temp;
-            console.log(temperature);
+            console.log(`Temperatura em ${allData.name}: ${temperature}`);
             return temperature;
         } else {
             throw new Error('Temperature data not found');
@@ -32,4 +32,8 @@ async function getWeatherData() {
     }
 }
 
-getWeatherData();
+
+document.getElementById('generate').addEventListener('click',()=>{
+    const zipCode = document.getElementById('zip').value
+    getWeatherData(baseURL,zipCode, apikey);
+})
