@@ -21,17 +21,17 @@ app.use(cors())
 app.use(express.static('website'));
 
 //data for test:
-projectData.temperature = 20;
-projectData.date = today.toDateString();
-projectData.userResp = "Me sinto bem";
+// projectData.temperature = 20;
+// projectData.date = today.toDateString();
+// projectData.userResp = "Me sinto bem";
 
 app.get('/test',(req,res)=>res.send(projectData));
 
-app.post('/',(req,res)=>{
+app.post('/data',(req,res)=>{
     const recievedData = req.body;
     console.log(recievedData.userResp);
     projectData = recievedData;
-    res.send('post recieved')
+    res.send(projectData)
 })
 
 
